@@ -6,26 +6,37 @@ const morgan = require('morgan')
 const {engine} = require('express-handlebars');
 
 const port = 3000
+
+app.use(express.static(path.join(__dirname,'public')))
+
 app.use(morgan('combined'))
 
 app.engine('.hbs', engine({
   extname:".hbs"
 }));
 app.set('view engine', '.hbs');
+
 app.set('views', path.join(__dirname, '/resource/views'));
 
-
+///////////////////////////////
+app.get('/news', (req, res) => {
+  
+  res.render('news')
+ 
+})
 app.get('/', (req, res) => {
   
     res.render('home')
    
 })
+app.get('/contact', (req, res) => {
 
-app.get('/tin-tuc', (req, res) => {
-  
-  res.render('news')
+  res.render('contact',{layout: 'main1'})
  
 })
+
+///////////////////////////
+
 
 
 app.listen(port, () => {
